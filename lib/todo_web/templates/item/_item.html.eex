@@ -1,0 +1,76 @@
+<div class="tile tile-centered">
+  <div class="tile-content">
+    <%= form_for @changeset, Routes.item_path(@conn, :update, @item), fn f -> %>
+      <%= hidden_input f, :due_date, value: Todo.Items.today() %>
+
+      <label class="form-checkbox">
+        <%= checkbox f, :complete, onchange: "this.form.submit()" %>
+        <i class="form-icon"></i>
+
+        <%= if @item.complete do %>
+          <del><%= @item.title %></del>
+        <% else %>
+          <%= @item.title %>
+        <% end %>
+      </label>
+    <% end %>
+  </div>
+
+  <div class="tile-action">
+    <div class="dropdown dropdown-right">
+      <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+        <i class="icon icon-more-vert"></i>
+      </a>
+
+      <ul class="menu">
+        <li class="divider" data-content="Move To"></li>
+
+        <%= if @item.due_date != Todo.Items.yesterday() && @item.complete do %>
+          <li class="menu-item">
+            <%= link to: Routes.item_path(@conn, :update, @item, %{item: %{due_date: Todo.Items.yesterday() |> Date.to_iso8601()}}), method: "put" do %>
+              Yesterday
+            <% end %>
+          </li>
+        <% end %>
+
+        <%= if @item.due_date != Todo.Items.today() do %>
+          <li class="menu-item">
+            <%= link to: Routes.item_path(@conn, :update, @item, %{item: %{due_date: Todo.Items.today() |> Date.to_iso8601()}}), method: "put" do %>
+              Today
+            <% end %>
+          </li>
+        <% end %>
+
+        <%= if @item.due_date != Todo.Items.tomorrow() do %>
+          <li class="menu-item">
+            <%= link to: Routes.item_path(@conn, :update, @item, %{item: %{due_date: Todo.Items.tomorrow() |> Date.to_iso8601()}}), method: "put" do %>
+              Tomorrow
+            <% end %>
+          </li>
+        <% end %>
+
+        <%= if @item.due_date do %>
+          <li class="menu-item">
+            <%= link to: Routes.item_path(@conn, :update, @item, %{item: %{due_date: nil}}), method: "put" do %>
+              Someday
+            <% end %>
+          </li>
+        <% end %>
+
+        <li class="divider"></li>
+
+        <li class="menu-item">
+          <%= link to: Routes.item_path(@conn, :edit, @item) do %>
+            Edit
+          <% end %>
+        </li>
+
+        <li class="menu-item">
+          <%= link to: Routes.item_path(@conn, :delete, @item), method: "delete" do %>
+            Delete
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+<h1 class="text-center">
+  <span class="back-button">
+    <%= link to: Routes.list_path(@conn, :index) do %>
+      <i class="icon icon-back"></i>
+    <% end %>
+  </span>
+  <%= @list.title %>
+</h1>
+
+<div class="columns">
+  <div class="column col-6 col-sm-12">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h4>Yesterday</h4>
+          <span class="date"><%= format_date(@yesterday.date) %></span>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <%= if length(@yesterday.items) == 0 do %>
+          <p class="empty">
+            Nothing got done :)
+          </p>
+        <% end %>
+
+        <%= for {item, changeset} <- @yesterday.items do %>
+          <%= if @editing.id == item.id do %>
+            <%= render(TodoWeb.ItemView, "_edit_item_form.html", conn: @conn, item: item, changeset: changeset) %>
+          <% else %>
+            <%= render(TodoWeb.ItemView, "_item.html", conn: @conn, item: item, changeset: changeset) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer"></div>
+    </div>
+  </div>
+
+  <div class="column col-6 col-sm-12">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h4>Today</h4>
+          <span class="date"><%= format_date(@today.date) %></span>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <%= if length(@today.items) == 0 do %>
+          <p class="empty">
+            Nothing to do :)
+          </p>
+        <% end %>
+
+        <%= for {item, changeset} <- @today.items do %>
+          <%= if @editing.id == item.id do %>
+            <%= render(TodoWeb.ItemView, "_edit_item_form.html", conn: @conn, list: @list, item: item, changeset: changeset) %>
+          <% else %>
+            <%= render(TodoWeb.ItemView, "_item.html", conn: @conn, item: item, changeset: changeset) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer">
+        <%= render TodoWeb.ItemView, "_new_item_form.html", conn: @conn, list: @list, changeset: @today.changeset %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column col-6 col-sm-12">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h4>Tomorrow</h4>
+          <span class="date"><%= format_date(@tomorrow.date) %></span>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <%= if length(@tomorrow.items) == 0 do %>
+          <p class="empty">
+            Nothing to do :)
+          </p>
+        <% end %>
+
+        <%= for {item, changeset} <- @tomorrow.items do %>
+          <%= if @editing.id == item.id do %>
+            <%= render(TodoWeb.ItemView, "_edit_item_form.html", conn: @conn, list: @list, item: item, changeset: changeset) %>
+          <% else %>
+            <%= render(TodoWeb.ItemView, "_item.html", conn: @conn, item: item, changeset: changeset) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer">
+        <%= render TodoWeb.ItemView, "_new_item_form.html", conn: @conn, list: @list, changeset: @tomorrow.changeset %>
+      </div>
+    </div>
+  </div>
+
+  <div class="column col-6 col-sm-12">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h4>Someday</h4>
+          <span class="date"><%= @someday.date %></span>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <%= if length(@someday.items) == 0 do %>
+          <p class="empty">
+            Nothing to do :)
+          </p>
+        <% end %>
+
+        <%= for {item, changeset} <- @someday.items do %>
+          <%= if @editing.id == item.id do %>
+            <%= render(TodoWeb.ItemView, "_edit_item_form.html", conn: @conn, list: @list, item: item, changeset: changeset) %>
+          <% else %>
+            <%= render(TodoWeb.ItemView, "_item.html", conn: @conn, item: item, changeset: changeset) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer">
+        <%= render TodoWeb.ItemView, "_new_item_form.html", conn: @conn, list: @list, changeset: @someday.changeset %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="tile tile-centered">
+  <div class="tile-content">
+    <%= link @list.title, to: Routes.list_item_path(@conn, :index, @list) %>
+  </div>
+
+  <div class="tile-action">
+    <div class="dropdown dropdown-right">
+      <a href="#" class="btn btn-link dropdown-toggle" tabindex="0">
+        <i class="icon icon-more-vert"></i>
+      </a>
+
+      <ul class="menu">
+        <li class="menu-item">
+          <%= link "Edit", to: Routes.list_path(@conn, :edit, @list) %>
+        </li>
+
+        <li class="menu-item">
+          <%= link "Delete", to: Routes.list_path(@conn, :delete, @list), method: "delete" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

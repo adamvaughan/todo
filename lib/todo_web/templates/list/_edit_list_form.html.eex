@@ -1,0 +1,6 @@
+<%= form_for @changeset, Routes.list_path(@conn, :update, @list), [id: "edit_list_form"], fn f -> %>
+  <div class="input-group">
+    <%= text_input f, :title, class: "form-input", autocomplete: "off", autofocus: true, data: [cancel_url: Routes.list_path(@conn, :index)] %>
+    <%= submit "Save", class: "btn btn-primary input-group-btn" %>
+  </div>
+<% end %>

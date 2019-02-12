@@ -1,0 +1,35 @@
+<h1 class="text-center">
+  TODO
+</h1>
+
+<div class="columns">
+  <div class="column col-6 col-sm-12 col-mx-auto">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <h4>Lists</h4>
+        </div>
+      </div>
+
+      <div class="panel-body">
+        <%= if length(@lists) == 0 do %>
+          <p class="empty">
+            Nothing will get done like this.
+          </p>
+        <% end %>
+
+        <%= for list <- @lists do %>
+          <%= if @editing.id == list.id do %>
+            <%= render(TodoWeb.ListView, "_edit_list_form.html", conn: @conn, list: list, changeset: @edit_list_changeset) %>
+          <% else %>
+            <%= render(TodoWeb.ListView, "_list.html", conn: @conn, list: list) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="panel-footer">
+        <%= render TodoWeb.ListView, "_new_list_form.html", conn: @conn, changeset: @new_list_changeset %>
+      </div>
+    </div>
+  </div>
+</div>

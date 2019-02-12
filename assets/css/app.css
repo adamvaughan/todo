@@ -1,1 +1,29 @@
-/* This file is for your main application css. */
+.container {
+  max-width: 1280px;
+}
+
+.column {
+  padding: 0.4rem;
+}
+
+.empty {
+  padding: 0.4rem;
+  margin: 0;
+  background: transparent;
+}
+
+.panel-title h4 {
+  float: left;
+}
+
+.panel-title .date {
+  float: right;
+}
+
+.panel .panel-body {
+  overflow-y: visible;
+}
+
+.back-button {
+  float: left;
+}

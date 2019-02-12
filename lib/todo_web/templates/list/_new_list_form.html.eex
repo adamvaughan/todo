@@ -1,0 +1,6 @@
+<%= form_for @changeset, Routes.list_path(@conn, :create), fn f -> %>
+  <div class="input-group">
+    <%= text_input f, :title, class: "form-input", placeholder: "Add a list...", autocomplete: "off" %>
+    <%= submit "Add", class: "btn btn-primary input-group-btn" %>
+  </div>
+<% end %>

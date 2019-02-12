@@ -16,9 +16,13 @@ defmodule TodoWeb.Router do
   scope "/", TodoWeb do
     pipe_through :browser
 
-    get "/", ItemController, :index
+    get "/", ListController, :index
 
-    resources("/items", ItemController, only: [:index, :create, :delete])
+    resources("/lists", ListController, only: [:index, :create, :edit, :update, :delete]) do
+      resources("/items", ItemController, only: [:index, :create])
+    end
+
+    resources("/items", ItemController, only: [:edit, :update, :delete])
   end
 
   # Other scopes may use custom stacks.
